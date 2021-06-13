@@ -1,4 +1,4 @@
-import { makeAutoObservable, configure } from "mobx"
+import { makeAutoObservable, configure, autorun } from "mobx"
 import { nanoid } from "nanoid";
 import { createContext } from 'react'
 
@@ -11,7 +11,7 @@ const addTodo = (todos, text) => [
         done: false,
     },
     ...todos,
-    
+
 ];
 
 const removeTodo = (todos, id) =>
@@ -75,5 +75,6 @@ class Store {
     // }
 
 }
+
 //чтобы испоьзовать данные из стора в реакт компонентах нужно обернуть стор в реакт контекст
 export default createContext(new Store())

@@ -13,6 +13,7 @@ export const TodoList = () => {
     const OwnStore = useContext(Store)
     const regexp = /#\w+/gm  //snring.match.regexp вернет массив совпадений (все слова идущие за # )
     const arr = []
+
     console.log(arr)
     return (
         <div className="mt-4">
@@ -41,10 +42,14 @@ export const TodoList = () => {
                                 onClick={(e) => { console.log(e.target.innerText) }}>
                                 {task.text.match(regexp) != null
                                     ?
-                                    (task.text.match(regexp).join(' '),
-                                      arr.push(...task.text.match(regexp)))
+                                    (
+                                        arr.push(...task.text.match(regexp)),
+                                        task.text.match(regexp).join(' ')
+
+                                    )
                                     :
-                                    ('')}</List.Header>
+                                    ('')}
+                            </List.Header>
                         </List.Content>
                     </List.Item>
                 ))}
@@ -53,7 +58,7 @@ export const TodoList = () => {
             <List horizontal onClick={(e) => { console.log(e.target.innerText) }}>
 
                 {Array.from(new Set(arr)).map(item => (
-                    <List.Item className='text-success'>
+                    <List.Item className='text-success' key={item.index}>
                         {arr != null
                             ?
                             (item)
@@ -69,9 +74,5 @@ export const TodoList = () => {
 export default observer(TodoList)
 
 
-// runInAction(
-//     () => {
-//         task.text = e.target.value
-//     }
-// )
+
 // Array.from(new Set(  ))
