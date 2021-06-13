@@ -1,14 +1,17 @@
-import { makeAutoObservable, runInAction } from "mobx"
+import { makeAutoObservable, configure } from "mobx"
 import { nanoid } from "nanoid";
 import { createContext } from 'react'
 
+configure({ enforceActions: "never" })
+
 const addTodo = (todos, text) => [
-    ...todos,
     {
         id: nanoid(),
         text,
         done: false,
     },
+    ...todos,
+    
 ];
 
 const removeTodo = (todos, id) =>
@@ -24,6 +27,7 @@ class Store {
         //со значением автообсервбл не нужно расставлять декораторы (@action, @observeble, @computed,@reaction) теперь mobx распознает значения автоматически
         makeAutoObservable(this)
     }
+
 
     addTodo() {
         this.todos = addTodo(this.todos, this.newTodo);

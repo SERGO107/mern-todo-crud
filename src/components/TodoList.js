@@ -1,13 +1,14 @@
-import { observer } from 'mobx-react'
+import { observer, } from 'mobx-react'
+
 import React from 'react'
 import Store from '../store'
 import { useContext } from 'react'
-import { List, Button } from 'semantic-ui-react'
-import { nanoid } from 'nanoid'
+import { List, Button, Input, Form } from 'semantic-ui-react'
 
 
 
 export const TodoList = () => {
+
     const OwnStore = useContext(Store)
     const regexp = /#\w+/gm  //snring.match.regexp вернет массив совпадений (все слова идущие за # )
 
@@ -15,20 +16,30 @@ export const TodoList = () => {
         <div className="mt-4">
             <List divided relaxed>
                 {OwnStore.todos.map(task => (
-                    <List.Item key={nanoid()}>
+                    <List.Item key={task.id}>
                         <List.Icon name='github' size='large' verticalAlign='middle' />
-                        <List.Content>
-                            <List.Description >
-                                {task.text}
+                        <List.Content key={task.id}>
+                            <List.Description key={task.id}>
+                                <Form key={task.id}>
+                                    <Input key={task.id}
+
+                                        transparent
+                                        onChange={(e) => {
+                                            task.text = e.target.value
+
+                                        }}
+                                        value={task.text}
+                                    />
+                                </Form>
+
                                 <Button.Group basic floated='right' >
-                                    <Button >Done</Button>
-                                    <Button>Edit</Button>
+
                                     <Button onClick={() => {
                                         OwnStore.removeTodo(task.id);
                                     }}>Delete </Button>
                                 </Button.Group>
                             </List.Description>
-                            {/* <List.Header as='a'>{task.match(regexp)}</List.Header> */}
+                            <List.Header as='a'>{task.text.match(regexp)}</List.Header>
                         </List.Content>
                     </List.Item>
                 ))}
@@ -38,3 +49,10 @@ export const TodoList = () => {
     )
 }
 export default observer(TodoList)
+
+
+// runInAction(
+//     () => {
+//         task.text = e.target.value
+//     }
+// )

@@ -2,7 +2,9 @@ import { observer } from 'mobx-react'
 import React from 'react'
 import Store from '../store'
 import { useContext } from 'react'
-import { Input,  Button } from 'semantic-ui-react'
+import { Input, Button } from 'semantic-ui-react'
+
+
 
 export const Inputs = () => {
     const OwnStore = useContext(Store)
