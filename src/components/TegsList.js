@@ -8,7 +8,6 @@ const TegsList = () => {
     const OwnStore = useContext(Store)
     function filterTasks(e) {
         let result = e.target.innerText
-        console.log(result)
         OwnStore.filteredTodo(result)
     }
 

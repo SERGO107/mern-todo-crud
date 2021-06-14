@@ -32,7 +32,7 @@ class Store {
     addTodo() {
         this.todos = addTodo(this.todos, this.newTodo);
         localStorage.setItem('myStorage', JSON.stringify(this.todos))
-        // this.todos = JSON.parse(localStorage.getItem('myStorage'))
+       
         this.newTodo = "";
     }
 
@@ -42,7 +42,7 @@ class Store {
 
     filteredTodo = (tagValue) => {
 
-        if (tagValue == '#All') { this.todos = JSON.parse(localStorage.getItem('myStorage')) }
+        if (tagValue === '#All') { this.todos = JSON.parse(localStorage.getItem('myStorage')) }
         else {
             this.todos = this.todos.filter(function (elem) {
                 if (elem.text.includes(tagValue)) {
