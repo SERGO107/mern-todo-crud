@@ -17,23 +17,23 @@ const removeTodo = (todos, id) =>
     todos.filter((todo) => todo.id !== id);
 
 
+
 class Store {
-    regexp = /#\w+/gm
-    todos = JSON.parse(localStorage.getItem('myStorage'))
-    FilteredTodoList = []
+    todos = []
+    ldb = JSON.parse(localStorage.getItem('myStorage'))
     newTodo = ""
     arrayTegs = ['#All']
 
-    constructor() {
 
+    constructor() {
         makeAutoObservable(this)
     }
 
     addTodo() {
         this.todos = addTodo(this.todos, this.newTodo);
         localStorage.setItem('myStorage', JSON.stringify(this.todos))
-       
         this.newTodo = "";
+
     }
 
     removeTodo(id) {
@@ -41,7 +41,6 @@ class Store {
     }
 
     filteredTodo = (tagValue) => {
-
         if (tagValue === '#All') { this.todos = JSON.parse(localStorage.getItem('myStorage')) }
         else {
             this.todos = this.todos.filter(function (elem) {
@@ -53,8 +52,7 @@ class Store {
             });
         }
     }
-
 }
-
+if (Store.ldb !== '') { document.addEventListener("DOMContentLoaded", Store.todos = Store.ldb); }
 
 export default createContext(new Store())

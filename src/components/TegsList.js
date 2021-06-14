@@ -3,6 +3,8 @@ import React from 'react'
 import Store from '../store'
 import { useContext } from 'react'
 import { List } from 'semantic-ui-react'
+import { nanoid } from 'nanoid'
+
 
 const TegsList = () => {
     const OwnStore = useContext(Store)
@@ -12,11 +14,11 @@ const TegsList = () => {
     }
 
     return (
-        <div>
-            <List horizontal onClick={filterTasks}>
+        <div key={nanoid()}>
+            <List horizontal onClick={filterTasks} >
 
                 {Array.from(new Set(OwnStore.arrayTegs)).map(item => (
-                    <List.Item className='text-success' key={item.index}>
+                    <List.Item className='text-success' key={nanoid()}>
                         {OwnStore.arrayTegs != null
                             ?
                             (item)

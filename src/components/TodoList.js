@@ -41,7 +41,7 @@ export const TodoList = () => {
                                 </Button.Group>
                             </List.Description>
                             <List.Header className='text-info' key={nanoid()}
-                                onClick={(e) => { console.log(e.target.innerText) }}>
+                                >
                                 {task.text.match(regexp) != null
                                     ?
                                     (
