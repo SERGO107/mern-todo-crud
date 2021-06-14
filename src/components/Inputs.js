@@ -14,7 +14,7 @@ export const Inputs = () => {
             <Input
                 fluid icon='tasks'
                 value={OwnStore.newTodo}
-                onChange={(evt) => (OwnStore.newTodo = evt.target.value)}
+                onChange={(evt) => (OwnStore.newTodo = evt.target.value )}
                 placeholder="New todo"
 
             />

@@ -28,13 +28,16 @@ export const TodoList = () => {
                                         transparent
                                         onChange={(e) => {
                                             task.text = e.target.value
+                                            localStorage.setItem('myStorage', JSON.stringify(OwnStore.todos))
                                         }}
                                         value={task.text}
                                     />
                                 </Form>
                                 <Button.Group basic floated='right' >
+                                    
                                     <Button onClick={() => {
                                         OwnStore.removeTodo(task.id);
+                                        localStorage.setItem('myStorage', JSON.stringify(OwnStore.todos))
                                     }}>Delete </Button>
                                 </Button.Group>
                             </List.Description>

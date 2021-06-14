@@ -4,6 +4,7 @@ import { createContext } from 'react'
 
 configure({ enforceActions: "never" })
 
+
 const addTodo = (todos, text) => [
     {
         id: nanoid(),
@@ -17,9 +18,16 @@ const addTodo = (todos, text) => [
 const removeTodo = (todos, id) =>
     todos.filter((todo) => todo.id !== id);
 
+// const gotTodo = () =>
+
+// window.onload = () => {
+//     alert( JSON.parse(localStorage.getItem('myStorage')))
+  
+// }
+
 class Store {
     regexp = /#\w+/gm
-    todos = []
+    todos = JSON.parse(localStorage.getItem('myStorage'))
     FilteredTodoList = []
     newTodo = ""
 
@@ -28,15 +36,21 @@ class Store {
         makeAutoObservable(this)
     }
 
-
     addTodo() {
         this.todos = addTodo(this.todos, this.newTodo);
+        localStorage.setItem('myStorage', JSON.stringify(this.todos))
+        // this.todos = JSON.parse(localStorage.getItem('myStorage'))
         this.newTodo = "";
     }
+
+
     removeTodo(id) {
         this.todos = removeTodo(this.todos, id);
     }
 
+    gotTodo() {
+        this.todos = localStorage.getItem('tom', this.todos)
+    }
 
     deleteTask = (id) => {
         console.log(id)
@@ -52,7 +66,6 @@ class Store {
         });
 
     }
-
 
     // async fetchUserInfo() {
     //     const character = this.userLogin
