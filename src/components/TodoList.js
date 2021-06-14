@@ -5,16 +5,12 @@ import Store from '../store'
 import { useContext } from 'react'
 import { List, Button, Input, Form } from 'semantic-ui-react'
 import { nanoid } from 'nanoid'
-
-
+import TegsList from './TegsList'
 
 export const TodoList = () => {
-
     const OwnStore = useContext(Store)
-    const regexp = /#\w+/gm  //snring.match.regexp вернет массив совпадений (все слова идущие за # )
-    const arr = []
+    const regexp = /#\w+/gm  //string.match.regexp вернет массив совпадений (все слова идущие за # )
 
-    console.log(arr)
     return (
         <div className="mt-4">
             <List divided relaxed>
@@ -25,6 +21,7 @@ export const TodoList = () => {
                             <List.Description key={task.id}>
                                 <Form key={task.id}>
                                     <Input key={task.id}
+                                        fluid
                                         transparent
                                         onChange={(e) => {
                                             task.text = e.target.value
@@ -34,11 +31,13 @@ export const TodoList = () => {
                                     />
                                 </Form>
                                 <Button.Group basic floated='right' >
-                                    
+
                                     <Button onClick={() => {
                                         OwnStore.removeTodo(task.id);
                                         localStorage.setItem('myStorage', JSON.stringify(OwnStore.todos))
-                                    }}>Delete </Button>
+                                    }}>Delete
+                                    </Button>
+
                                 </Button.Group>
                             </List.Description>
                             <List.Header className='text-info' key={nanoid()}
@@ -46,7 +45,7 @@ export const TodoList = () => {
                                 {task.text.match(regexp) != null
                                     ?
                                     (
-                                        arr.push(...task.text.match(regexp)),
+                                        OwnStore.arrayTegs.push(...task.text.match(regexp)),
                                         task.text.match(regexp).join(' ')
 
                                     )
@@ -58,19 +57,10 @@ export const TodoList = () => {
                 ))}
             </List>
 
-            <List horizontal onClick={(e) => { console.log(e.target.innerText) }}>
+            <div >
+                <TegsList />
 
-                {Array.from(new Set(arr)).map(item => (
-                    <List.Item className='text-success' key={item.index}>
-                        {arr != null
-                            ?
-                            (item)
-                            :
-                            ('')}
-                    </List.Item>
-                ))}
-            </List>
-
+            </div>
         </div >
     )
 }
@@ -78,4 +68,3 @@ export default observer(TodoList)
 
 
 
-// Array.from(new Set(  ))
